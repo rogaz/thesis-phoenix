@@ -34,21 +34,32 @@ defmodule Thesis.Router do
         plug :put_secure_browser_headers
       end
 
+      pipeline :ensure_auth do
+        plug Cms.UserManager.Pipeline
+        plug Guardian.Plug.EnsureAuthenticated
+        plug Cms.UserManager.SetCurrentUser
+      end
+
       scope "/thesis", Thesis do
         pipe_through :thesis_pipeline
 
         get "/thesis.js", ApiController, :assets
         get "/thesis.css", ApiController, :assets
 
-        put "/update", ApiController, :update
-        delete "/delete", ApiController, :delete
-
         get "/backups", ApiController, :backups_for_page
         get "/restore/:backup_id", ApiController, :restore
 
+        get "/files/:slug", ApiController, :show_file
+      end
+
+      scope "/thesis", Thesis do
+        pipe_through [:thesis_pipeline, :ensure_auth]
+
+        put "/update", ApiController, :update
+        delete "/delete", ApiController, :delete
+
         post "/files/upload", ApiController, :upload_file
         post "/files/import", ApiController, :import_file
-        get "/files/:slug", ApiController, :show_file
       end
     end
   end
