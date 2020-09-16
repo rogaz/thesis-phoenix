@@ -128,6 +128,8 @@ defmodule Thesis.View do
   def thesis_editor(conn) do
     if editable?(conn) do
       page = conn.assigns[:thesis_page]
+      title = page && page.title
+      description = page && page.description
       redirect_url = page && page.redirect_url
       template = page && page.template
       templates = Enum.join(dynamic_templates(), ",")
@@ -138,6 +140,8 @@ defmodule Thesis.View do
         data_file_uploader: uploader(),
         data_redirect_url: redirect_url,
         data_template: template,
+        data_title: title,
+        data_description: description,
         data_templates: templates,
         data_notifications: notifications,
         data_dynamic_page: conn.assigns[:thesis_dynamic_page])
@@ -228,7 +232,7 @@ defmodule Thesis.View do
           if (container) {
             loadThesis(function () {
               // Init Thesis
-              console.log(window.thesis(container))
+              window.thesis(container);
             })
           }
         })
