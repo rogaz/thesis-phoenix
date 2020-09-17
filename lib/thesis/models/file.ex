@@ -3,6 +3,7 @@ defmodule Thesis.File do
   Represents a file.
   """
   use Ecto.Schema
+  use Rummage.Ecto
   import Ecto.Changeset, only: [cast: 3, validate_required: 2]
   import Thesis.Utilities
 

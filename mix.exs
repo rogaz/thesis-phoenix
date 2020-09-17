@@ -30,6 +30,7 @@ defmodule Thesis.Mixfile do
       {:httpoison, ">= 0.11.0"},
       {:html_sanitize_ex, ">= 1.3.0"},
       {:lz_string, "~> 0.0.7"},
+      {:rummage_ecto, "~> 2.0"},
       {:ex_doc, ">= 0.12.0", only: [:dev]},
       {:earmark, ">= 0.2.0", only: [:dev]},
       {:dialyxir, ">= 0.3.5", only: [:dev]},

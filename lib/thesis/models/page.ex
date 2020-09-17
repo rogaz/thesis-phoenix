@@ -4,6 +4,7 @@ defmodule Thesis.Page do
   title, description, and redirect if necessary.
   """
   use Ecto.Schema
+  use Rummage.Ecto
   import Ecto.Changeset, only: [cast: 3, validate_required: 2]
 
   @type t :: %Thesis.Page{
